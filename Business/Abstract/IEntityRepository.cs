@@ -3,4 +3,4 @@
     public interface IEntityRepository<T>
     {
     }
-}
+} 

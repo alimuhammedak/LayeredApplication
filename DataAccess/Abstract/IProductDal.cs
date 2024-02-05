@@ -1,15 +1,12 @@
 ﻿using Entities.Concrete;
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace DataAccess.Abstract
 {
-    public interface IProductDal
+    public interface IProductDal : IEntityRepository<Product>
     {
-        List<Product> GetAll(); // List all products
-        List<Product> GetAllByCategory(int categoryId); // List all products by category 
-        void Add(Product product); // Add a product
-        void Update(Product product); // Update a product
-        void Delete(Product product); // Delete a product
+        Product? Get(Expression<Func<Product, bool>> filter);
     }
 }

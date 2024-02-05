@@ -1,13 +1,12 @@
 ﻿using Business.Abstract;
 using DataAccess.Abstract;
-using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 
 namespace Business.Concrete;
 
 public class ProductManager : IProductService
 {
-    IProductDal _productDal;
+    IProductDal _productDal;    
 
     public ProductManager(IProductDal productDal)
     {
@@ -21,6 +20,7 @@ public class ProductManager : IProductService
 
     public void Delete(Product product)
     {
+
         _productDal.Delete(product);
     }
 
