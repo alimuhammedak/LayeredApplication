@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using DataAccess.Abstract;
 using Entities.Concrete;
 
@@ -36,7 +34,7 @@ namespace DataAccess.Concrete.InMemory
             productToUpdate.UnitsInStock = product.UnitsInStock;
         }
 
-        public Product? Get(Expression<Func<Product, bool>> filter)
+        public Product Get(Expression<Func<Product, bool>> filter)
             => filter != null ? _products.SingleOrDefault(filter.Compile()) : _products.SingleOrDefault();
 
         public List<Product> GetAll(Expression<Func<Product, bool>> filter)

@@ -1,15 +1,11 @@
 ﻿using Entities.Concrete;
-using System;
-using System.Linq;
 
 namespace Business.Abstract
 {
-    public interface IProductService
+    public interface IProductService:IEntityRepository<Product>
     {
-        List<Product> GetAll(); // Get all products
         List<Product> GetAllByCategory(int categoryId); // Get all products by category
-        void Add(Product product); // Add a product
-        void Update(Product product); // Update a product
-        void Delete(Product product); // Delete a product
+        List<Product> GetByUnitPrice(decimal min, decimal max); // Get all products by price range
+        List<Product> GetByProductName(string productName); // Get all products by name
     }
 }
