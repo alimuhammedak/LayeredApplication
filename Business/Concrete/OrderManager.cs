@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,9 +18,15 @@ namespace Business.Concrete
             _orderDal = orderDal;
         }
 
+        //[SuppressMessage("ReSharper.DPA", "DPA0007: Large number of DB records")]
         public List<Order> GetAll()
         {
             return _orderDal.GetAll();
+        }
+
+        public Order GetById(int id)
+        {
+            return _orderDal.Get(o => o.OrderID == id);
         }
     }
 }

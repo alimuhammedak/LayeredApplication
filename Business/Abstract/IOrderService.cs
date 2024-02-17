@@ -9,6 +9,6 @@ namespace Business.Abstract
 {
     public interface IOrderService:IEntityRepository<Order>
     {
-
+        Order GetById(int id);
     }
 }

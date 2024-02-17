@@ -1,12 +1,15 @@
 ﻿using System.Linq.Expressions;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace DataAccess.Concrete.InMemory
 {
     public class InMemoryProductDal : IProductDal
     {
         List<Product> _products;
+
+        public List<ProductDetailDto> GetProductDetails => throw new NotImplementedException();
 
         public InMemoryProductDal() => _products = new List<Product>
             {
@@ -40,5 +43,9 @@ namespace DataAccess.Concrete.InMemory
         public List<Product> GetAll(Expression<Func<Product, bool>> filter)
             => filter != null ? _products.Where(filter.Compile()).ToList() : _products;
 
+        List<ProductDetailDto> IProductDal.GetProductDetails()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
