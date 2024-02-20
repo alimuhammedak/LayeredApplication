@@ -1,11 +1,10 @@
-﻿using Entities.Concrete;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using Core.DataAccess;
+using Entities.Concrete;
 
-namespace DataAccess.Abstract
+namespace DataAccess.Abstract;
+
+public interface ICustomerDal : IEntityRepository<Customer>
 {
-    public interface ICustomerDal : IEntityRepository<Customer>
-    {
-        Customer Get(Expression<Func<Customer, bool>> filter);
-    }
+    Customer Get(Expression<Func<Customer, bool>> filter);
 }

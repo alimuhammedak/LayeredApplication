@@ -1,6 +1,5 @@
 ﻿using Business.Concrete;
 using DataAccess.Concrete.EntityFramework;
-using Entities.Concrete;
 
 
 
@@ -9,25 +8,46 @@ using Entities.Concrete;
 
 ProductManager productManager = new ProductManager(new EfProductDal());
 
-foreach (var productDetail in productManager.GetProductDetails())
+var result = productManager.GetByUnitPrice(20022, 50556);
+if (result.IsSuccess)
 {
-    Console.WriteLine($"{productDetail.ProductId,-10} \t{productDetail.ProductName,-32} \t{productDetail.CategoryName,-15} \t{productDetail.UnitsInStock}");
+    if (result.Data.Count < 1 || result is { Data: null })
+    {
+        Console.WriteLine("Data yok");
+    }
+    else
+    {
+        foreach (var product in result.Data)
+        {
+            Console.WriteLine(product.ProductName);
+        }
+    }
+
+}
+else
+{
+    Console.WriteLine(result.Message);
 }
 
+
+
+//foreach (var productDetail in productManager.GetProductDetails())
+//{
+//    Console.WriteLine($"{productDetail.ProductId,-10} \t{productDetail.ProductName,-32} \t{productDetail.CategoryName,-15} \t{productDetail.UnitsInStock}");
+//}
 
 
 
 //ProductTest();
 //CategoryTest();
-
-void CategoryTest()
-{
-    OrderManager orderManager = new OrderManager(new EfOrderDal());
-    foreach (var order in orderManager.GetAll())
-    {
-        Console.WriteLine(order.shipCity);
-    }
-}
+//void CategoryTest()
+//{
+//    OrderManager orderManager = new OrderManager(new EfOrderDal());
+//    foreach (var order in orderManager.GetAll())
+//    {
+//        Console.WriteLine(order.shipCity);
+//    }
+//}
 
 //void ProductTest()
 //{

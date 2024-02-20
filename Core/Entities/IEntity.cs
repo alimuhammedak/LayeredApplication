@@ -1,7 +1,5 @@
-﻿namespace Core.Entities
-{
-    public interface IEntity
-    {
+﻿namespace Core.Entities;
 
-    }
+public interface IEntity
+{
 }
