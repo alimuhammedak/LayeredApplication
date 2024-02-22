@@ -8,7 +8,7 @@ using DataAccess.Concrete.EntityFramework;
 
 ProductManager productManager = new ProductManager(new EfProductDal());
 
-var result = productManager.GetByUnitPrice(20022, 50556);
+var result = productManager.GetAll();
 if (result.IsSuccess)
 {
     if (result.Data.Count < 1 || result is { Data: null })
