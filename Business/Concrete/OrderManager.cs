@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 
@@ -13,14 +15,25 @@ public class OrderManager : IOrderService
 
     public IOrderDal? _orderDal { get; set; }
 
-    public Order GetById(int id)
+    public IDataResult<List<Order>> GetAll()
     {
-        return _orderDal.Get(o => o.OrderID == id);
+        return new SuccessDataResult<List<Order>>(_orderDal.GetAll(), Messages.OrderListed);
     }
 
-    //[SuppressMessage("ReSharper.DPA", "DPA0007: Large number of DB records")]
-    public List<Order> GetAll()
+    public IDataResult<List<Order>> GetByTime(DateTime min, DateTime max)
     {
-        return _orderDal.GetAll();
+        return new SuccessDataResult<List<Order>>(_orderDal.GetAll(o =>
+            o.OrderDate > min && o.OrderDate < max), Messages.OrderListed);
+    }
+
+    public IDataResult<Order> GetOrderById(int id)
+    {
+        return new SuccessDataResult<Order>(_orderDal.Get(o => o.OrderID == id), Messages.OrderBrought);
+    }
+
+    public IResult OrderAdd(Order order)
+    {
+        _orderDal.Add(order);
+        return new SuccessResult(Messages.OrderAdded);
     }
 }

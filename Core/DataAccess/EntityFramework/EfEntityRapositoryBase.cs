@@ -35,7 +35,7 @@ public class EfEntityRapositoryBase<TEntity, TContext> : IEntityRepository<TEnti
         using var context = new TContext();
         return filter == null
             ? context.Set<TEntity>().ToList()
-            : context.Set<TEntity>().Where(filter.Compile()).ToList();
+            : context.Set<TEntity>().Where(filter).ToList();
     }
 
     void IEntityRepository<TEntity>.Update(TEntity entity)

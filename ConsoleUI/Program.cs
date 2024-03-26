@@ -1,28 +1,16 @@
 ﻿using Business.Concrete;
 using DataAccess.Concrete.EntityFramework;
 
-
-
-
-
-
-ProductManager productManager = new ProductManager(new EfProductDal());
+var productManager = new ProductManager(new EfProductDal());
 
 var result = productManager.GetAll();
 if (result.IsSuccess)
 {
     if (result.Data.Count < 1 || result is { Data: null })
-    {
         Console.WriteLine("Data yok");
-    }
     else
-    {
         foreach (var product in result.Data)
-        {
             Console.WriteLine(product.ProductName);
-        }
-    }
-
 }
 else
 {
@@ -30,12 +18,10 @@ else
 }
 
 
-
 //foreach (var productDetail in productManager.GetProductDetails())
 //{
 //    Console.WriteLine($"{productDetail.ProductId,-10} \t{productDetail.ProductName,-32} \t{productDetail.CategoryName,-15} \t{productDetail.UnitsInStock}");
 //}
-
 
 
 //ProductTest();
@@ -70,3 +56,15 @@ else
 //var productNames = products.Select(p => p.ProductName);
 
 //Console.WriteLine(string.Join(" ", productNames));
+
+
+
+
+
+
+
+
+
+
+
+
