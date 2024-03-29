@@ -1,4 +1,8 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
+using Core.Utilities.Results;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,7 +44,6 @@ public class ProductsController : ControllerBase
     {
         var result = _productService.Add(product);
         if (result.IsSuccess) return Ok(result.Message);
-
         return BadRequest(result.Message);
     }
 }
