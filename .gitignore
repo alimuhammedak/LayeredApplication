@@ -361,3 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+ConsoleUI/Program-HelloWord.cs
+DataAccess/DataAccess-HelloWord.csproj
+Entities/Entities-HelloWord.csproj
+Business/Business-HelloWord.csproj
