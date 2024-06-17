@@ -3,6 +3,7 @@ using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -13,16 +14,27 @@ namespace Business.Concrete;
 public class ProductManager : IProductService
 {
     private readonly IProductDal _productDal;
+    private readonly ICategoryService _categoryService;
 
     public ProductManager(IProductDal productDal)
-    {
+    {    
         _productDal = productDal;
     }
+
+    //[SecuredOperation("product.add,admin")]
     [ValidationAspect(typeof(ProductValidator))]
     public IResult Add(Product product)
     {
-        _productDal.Add(product);
-        return new SuccessResult(Messages.ProductAdded);
+        var result = BusinessRules.Run(CheckIfProductCountOfCategoryCorrect(product.CategoryId), 
+            CheckIfProductNameExist(product.ProductName));
+        
+        if (result != null)
+        {
+            _productDal.Add(product);
+            return new SuccessResult(Messages.ProductAdded);
+        }
+
+        return result;
     }
 
     public IDataResult<List<Product>> GetAll()
@@ -62,5 +74,38 @@ public class ProductManager : IProductService
     public IDataResult<List<ProductDetailDto>> GetProductDetails()
     {
         return new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductDetails(), Messages.ProductsListed);
+    }
+
+    private IResult CheckIfProductCountOfCategoryCorrect(int categoryId)
+    {
+        var result = _productDal.GetAll(p => p.CategoryId == categoryId).Any();
+        if (result)
+        {
+            return new ErrorResult("Hata");
+        }
+
+        return new SuccessResult("Gecti");
+    }
+
+    private IResult CheckIfProductNameExist(string productName)
+    {
+        var result = _productDal.GetAll(p => p.ProductName == productName).Any();
+        if (result)
+        {
+            return new ErrorResult("Hata");
+        }
+
+        return new SuccessResult("Gecti");
+    }
+
+    private IResult CheckIfCategoryLimitExceeded()
+    {
+        var result = _categoryService.GetAll();
+        if (result.Data.Count > 15)
+        {
+            return new ErrorResult(Messages.CategoryLimitExceeded);
+        }
+
+        return new SuccessResult();
     }
 }

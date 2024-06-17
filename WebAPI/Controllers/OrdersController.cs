@@ -19,7 +19,10 @@ public class OrdersController : ControllerBase
     public IActionResult GetAll()
     {
         var result = _orderService.GetAll();
-        if (result.IsSuccess) return Ok(result);
+
+        if (result.IsSuccess)
+            return Ok(result);
+
         return BadRequest(result.Message);
     }
 

@@ -13,6 +13,7 @@ namespace Core.CrossCuttingConcerns.Validation
         {
             var context = new ValidationContext<object>(entity);
             var result = validate.Validate(context);
+
             if (result != null)
             {
                 throw new ValidationException(result.Errors);

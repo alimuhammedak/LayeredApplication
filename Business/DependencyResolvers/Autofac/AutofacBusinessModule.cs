@@ -19,6 +19,10 @@ public class AutofacBusinessModule:Module
         builder.RegisterType<OrderManager>().As<IOrderService>().SingleInstance();
         builder.RegisterType<EfOrderDal>().As<IOrderDal>().SingleInstance();
 
+        builder.RegisterType<CategoryManager>().As<ICategoryService>().SingleInstance();
+        builder.RegisterType<EfCategoryDal>().As<ICategoryDal>().SingleInstance();
+
+
         var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
         builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
