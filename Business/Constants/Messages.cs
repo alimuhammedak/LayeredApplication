@@ -12,4 +12,5 @@ public static class Messages
     public static readonly string OrderListed = "Siparişler Listelendi";
     public static readonly string ProductBrought = "Ürün Getirildi";
     public static readonly string OrderBrought = "Sipariş Getirildi";
+    internal static readonly string CategoryLimitExceeded;
 }
